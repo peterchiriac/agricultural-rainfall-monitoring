@@ -19,19 +19,17 @@ with open("readings_raw.json", "r") as json_file:
 
 print("Readings to load:", len(data["items"]))
 
-reading = data["items"][0]
-
-params = {
-"reading_id": reading["@id"],
-"reading_time": reading["dateTime"],
-"measure_id": reading["measure"],
-"rainfall_mm": reading["value"]
-} # parameter mapping: map API fields to SQL parameters
-
 insert_sql = """INSERT INTO rainfall_readings (reading_id, reading_time, measure_id, rainfall_mm)
-VALUES ($reading_id, $reading_time, $measure_id, $rainfall_mm)""" # insertion. pass values from the SQL statement
+VALUES ($reading_id, $reading_time, $measure_id, $rainfall_mm) ON CONFLICT (reading_id) DO NOTHING""" # passed separately from the SQL statement & skip existing reading IDs so repeat loads do not create duplicates
 
-# con.execute(insert_sql, params)
+for reading in data["items"]:
+    params = {
+        "reading_id": reading["@id"],
+        "reading_time": reading["dateTime"],
+        "measure_id": reading["measure"],
+        "rainfall_mm": reading.get("value") # handling missing values
+} # parameter mapping: map API fields to SQL parameters
+    con.execute(insert_sql, params)
 
 print(con.execute("SELECT * FROM rainfall_readings").fetchall()) # verification. inspect the stored row
 
