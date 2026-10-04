@@ -3,14 +3,87 @@ import json
 
 con = duckdb.connect("rainfall.duckdb")
 
+
+con.execute("""CREATE TABLE IF NOT EXISTS stations(
+   station_id VARCHAR PRIMARY KEY,
+   station_reference_number VARCHAR,
+   latitude DECIMAL(8,6),
+   longitude Decimal(9,6)
+   )
+""")
+
+
+con.execute("""CREATE TABLE IF NOT EXISTS measures(
+   measure_id VARCHAR PRIMARY KEY,
+   station_id VARCHAR REFERENCES stations(station_id),
+   unit VARCHAR,
+   period_seconds INTEGER,
+   parameter VARCHAR
+   )
+""")
+
+
 con.execute("""
     CREATE TABLE IF NOT EXISTS rainfall_readings (
         reading_id VARCHAR PRIMARY KEY,
         reading_time TIMESTAMPTZ NOT NULL,
-        measure_id VARCHAR NOT NULL,
+        measure_id VARCHAR NOT NULL REFERENCES measures(measure_id),
         rainfall_mm DOUBLE
         )
-""") # table creation
+""") 
+
+station_sql = """
+INSERT INTO stations (
+    station_id,
+    station_reference_number,
+    latitude,
+    longitude
+)
+VALUES (
+    $station_id,
+    $station_reference_number,
+    $latitude,
+    $longitude
+)
+ON CONFLICT (station_id) DO NOTHING
+"""
+
+station_params = {
+    "station_id": "http://environment.data.gov.uk/flood-monitoring/id/stations/E7050",
+    "station_reference_number": "E7050",
+    "latitude": 52.186277,
+    "longitude": -1.171327
+}
+
+measure_sql = """
+INSERT INTO measures (
+    measure_id,
+    station_id,
+    unit,
+    period_seconds,
+    parameter
+)
+VALUES (
+    $measure_id,
+    $station_id,
+    $unit,
+    $period_seconds,
+    $parameter
+)
+ON CONFLICT (measure_id) DO NOTHING
+"""
+
+measure_params = {
+    "measure_id" : "http://environment.data.gov.uk/flood-monitoring/id/measures/E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm",
+    "station_id" : "http://environment.data.gov.uk/flood-monitoring/id/stations/E7050",
+    "unit" : "mm",
+    "period_seconds" : 900,
+    "parameter" : "rainfall"
+}
+
+con.execute(station_sql, station_params)
+con.execute(measure_sql, measure_params)
+
 
 print(con.execute("DESCRIBE rainfall_readings").fetchall())
 
@@ -32,5 +105,12 @@ for reading in data["items"]:   # load every reading
     con.execute(insert_sql, params)
 
 print(con.execute("SELECT * FROM rainfall_readings").fetchall()) # verification. inspect the stored readings
-
+print(
+    "Reading count:",
+    con.execute("SELECT COUNT(*) FROM rainfall_readings").fetchone()[0]
+)
 con.close()
+
+
+
+
