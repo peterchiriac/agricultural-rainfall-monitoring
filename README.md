@@ -4,6 +4,14 @@ A Python and DuckDB data pipeline for processing Environment Agency rainfall dat
 
 The project collects rainfall readings from the Environment Agency Real Time flood-monitoring API, preserves the raw response, transforms the data into a relational model, and produces a daily rainfall summary for visualisation in Tableau.
 
+## About Me
+
+My interest in data engineering has grown through working on my own projects. The more I’ve explored the field, the more I’ve felt that the work suits the way I naturally think. I enjoy breaking complex problems down, understanding how different parts of a system fit together, and looking for solutions that are both practical and elegant. I’m naturally driven to study and learn new things, and I’ve found the process of encountering problems, working through them and coming out more capable on the other side genuinely rewarding.
+
+I applied to The Information Lab because of the opportunity to be trained across a broad data engineering stack and then put those skills into practice working with real clients. The combination of hands-on training, coaching and experience working alongside data engineers on real projects is particularly attractive to me.
+
+I think one of my strengths is how I respond when things aren’t working. I don’t tend to get discouraged by setbacks; my instinct is to work out what I can do next, ask questions when I need to, and keep going until I understand the problem. I’m open to feedback and enjoy being challenged, which I think would make me a good fit for the coaching environment at The Data School.
+
 ## Use Case
 
 The pipeline is designed around a simple agricultural use case: helping a farm manager or grower monitor recent rainfall near agricultural land while also showing whether the underlying data is complete.
@@ -100,9 +108,20 @@ The packaged Tableau workbook is available at:
 
 `dashboard/agricultural_rainfall_monitoring.twbx`
 
+### Example Dashboard
+
+![Agricultural rainfall monitoring dashboard](dashboard/rainfall_dashboard.png)
+
+
 ## Running the Pipeline
 
-Run the scripts in order:
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+Then run the pipeline scripts in order:
 
 ```bash
 python fetch_rainfall.py
@@ -141,4 +160,21 @@ Possible next steps include:
 
 This project uses Environment Agency rainfall data from the Real Time flood-monitoring API (Beta).
 
+The API does not require authentication. The current request retrieves a single day of 15-minute readings using a limit of 100 records, which is sufficient for the expected 96 readings for the selected measure. Larger requests would require pagination rather than relying on a single response.
+
+The current pipeline makes only a small number of API requests. For larger-scale ingestion, request frequency and any published rate limits or usage guidance would need to be checked and respected.
+
 Environment Agency data is used under the Open Government Licence.
+
+
+## Use of AI
+
+I used AI as a learning and development aid throughout the project. This included:
+
+- initial brainstorming and research to help select an appropriate project and data source
+- breaking down unfamiliar data-engineering concepts and testing my understanding through questions and quizzes
+- debugging support when investigating problems in the pipeline
+- coaching on engineering decisions and possible improvements
+- reviewing documentation and helping me communicate the project clearly
+
+I used AI interactively rather than treating generated output as a finished solution. I made the project and engineering decisions myself, using AI to help me explore options, understand unfamiliar concepts, debug problems and challenge my thinking.

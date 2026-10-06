@@ -1,2 +1,7 @@
 date,measure_id,total_rainfall_mm,actual_readings,expected_readings,completeness_pct
+2026-09-24,http://environment.data.gov.uk/flood-monitoring/id/measures/E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm,0.0,96,96,100.0
+2026-09-11,http://environment.data.gov.uk/flood-monitoring/id/measures/E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm,0.1,95,96,98.95833333333334
+2026-09-25,http://environment.data.gov.uk/flood-monitoring/id/measures/E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm,0.0,96,96,100.0
+2026-09-10,http://environment.data.gov.uk/flood-monitoring/id/measures/E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm,0.7,96,96,100.0
 2026-10-01,http://environment.data.gov.uk/flood-monitoring/id/measures/E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm,0.0,96,96,100.0
+2026-09-30,http://environment.data.gov.uk/flood-monitoring/id/measures/E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm,0.1,95,96,98.95833333333334

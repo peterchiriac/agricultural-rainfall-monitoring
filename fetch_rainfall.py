@@ -2,7 +2,7 @@ import requests
 from datetime import datetime, timedelta
 
 measure = "E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm"
-date = "2026-10-01"
+date = "2026-09-11"
 
 url =  f"https://environment.data.gov.uk/flood-monitoring/id/measures/{measure}/readings?date={date}&_limit=100"
 
@@ -26,6 +26,7 @@ for reading in data["items"]:
     timestamps.append(dt)
 
 timestamps.sort()
+
 
 # Flag gaps or irregular intervals in the expected 15-minute sequence.
 for i in range(1, len(timestamps)):
