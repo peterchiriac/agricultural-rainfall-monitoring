@@ -2,7 +2,7 @@ import requests
 from datetime import datetime, timedelta
 
 measure = "E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm"
-date = "2026-09-11"
+date = "2026-09-10"
 
 url =  f"https://environment.data.gov.uk/flood-monitoring/id/measures/{measure}/readings?date={date}&_limit=100"
 
@@ -12,7 +12,7 @@ r.raise_for_status()
 
 # Preserve the raw API response as the Bronze layer.
 with open("readings_raw.json", "wb") as json_file:
-    json_file.write(r.content) 
+    json_file.write(r.content)
 
 # Parse the response for validation.
 data = r.json()
