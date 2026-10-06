@@ -12,14 +12,19 @@ I applied to The Information Lab because of the opportunity to be trained across
 
 I think one of my strengths is how I respond when things aren’t working. I don’t tend to get discouraged by setbacks; my instinct is to work out what I can do next, ask questions when I need to, and keep going until I understand the problem. I’m open to feedback and enjoy being challenged, which I think would make me a good fit for the coaching environment at The Data School.
 
-## Use Case
+## Project Purpose and Use Case
 
-The pipeline is designed around a simple agricultural use case: helping a farm manager or grower monitor recent rainfall near agricultural land while also showing whether the underlying data is complete.
+The purpose of this project is to provide useful rainfall context for agricultural decisions, such as the need for additional irrigation, the timing of fertiliser application, managing soil moisture, and pest and disease control.
 
-Rainfall totals alone can be misleading when readings are missing, so the pipeline produces both:
+The pipeline is designed around a farm manager or grower monitoring recent rainfall near their land. Rainfall totals alone can be misleading when readings are missing, so the pipeline produces both:
 
 - daily rainfall in millimetres
 - measurement completeness for the day
+
+Together, these give the user a clearer picture of recent rainfall conditions and an indication of how reliable the rainfall total is.
+
+A future development would allow the user to select a time period and view total rainfall and data completeness across that period, making the information more useful for planning specific agricultural interventions.
+
 
 ## Pipeline Architecture
 
@@ -137,7 +142,7 @@ API -> raw JSON -> DuckDB -> daily summary -> CSV
 
 ## Current Scope
 
-The current prototype processes one selected Environment Agency rainfall measure and date.
+The current prototype processes one selected Environment Agency rainfall measure for a single date.
 
 The data model can represent multiple stations and measures, but ingestion is not yet automated across multiple locations.
 
