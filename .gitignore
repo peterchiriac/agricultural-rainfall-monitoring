@@ -8,3 +8,4 @@ data.json
 readings_raw.json 
 .env
 .DS_Store
+.~*.twbr

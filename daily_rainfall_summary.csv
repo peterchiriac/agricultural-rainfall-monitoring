@@ -1,0 +1,2 @@
+date,measure_id,total_rainfall_mm,actual_readings,expected_readings,completeness_pct
+2026-10-01,http://environment.data.gov.uk/flood-monitoring/id/measures/E7050-rainfall-tipping_bucket_raingauge-t-15_min-mm,0.0,96,96,100.0
